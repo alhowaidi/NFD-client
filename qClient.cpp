@@ -52,17 +52,25 @@ int main ()
       std::cout <<"s: " << s << std::endl;
 
       // sending post message with the information .......
-      http_client client(U("http://10.71.103.63:34568"));
-
-
+      http_client_config config;
+      credentials cred(U("onos"), U("rocks"));
+      config.set_credentials(cred);
+//      http_client client(U("http://10.71.103.63:34568"),config);
+      //http_client client(U("http://onos:rocks@10.71.105.126:8181/onos/mobius/ndn/"),config);
+ http_client client(U("http://10.71.105.126:8181/onos/mobius/ndn/"),config);
       json::value postData;
       postData["name"] = json::value::string(U(s));
-//      postData["work"] = json::value::string(U("Phd"));
+      //      postData["work"] = json::value::string(U("Phd"));
+      postData["interestFileResource"] = json::value::string(U("Resource Name"));
+      postData["interestSrc"] = json::value::string(U("src IP"));
+      postData["interestDst"] = json::value::string(U("dst IP"));
       http_request request;
       request.set_body(postData);
+
       request.set_method(methods::POST);
 
       wcout << L"\nput values\n";
+
       http_response response = client.request(request).get();
       if(response.status_code() == status_codes::OK)
       {
