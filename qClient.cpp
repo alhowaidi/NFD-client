@@ -22,9 +22,9 @@ using namespace boost::interprocess;
 using namespace std;
 int main ()
 {
- message_queue::remove("message_queue");
+//--- message_queue::remove("message_queue");
 // ndn::chunks::ndnChunks nchunks;
-    while(true)
+//    while(true)
     {
    try{
 //struct timespec tim,tim2;
@@ -33,17 +33,17 @@ int main ()
 //nanosleep(&tim, NULL);
 
 
- std::this_thread::sleep_for(std::chrono::nanoseconds(10000));
-      message_queue mq(open_only ,"message_queue") ;
+//-- std::this_thread::sleep_for(std::chrono::nanoseconds(10000));
+ //--     message_queue mq(open_only ,"message_queue") ;
 
-      size_t const max_msg_size = 0x100;
+     //---- size_t const max_msg_size = 0x100;
 
-      std::string s;
-      s.resize(max_msg_size);
+      std::string s="YYMMMlllllll";
+//-----      s.resize(max_msg_size);
       size_t msg_size;
       unsigned msg_prio;
-      mq.receive(&s[0], s.size(), msg_size, msg_prio);
-      s.resize(msg_size);
+//--      mq.receive(&s[0], s.size(), msg_size, msg_prio);
+//--      s.resize(msg_size);
 
 //      ndn::chunks::ndnChunks nchunks;
 //      nchunks.startChunk(s);
@@ -52,12 +52,14 @@ int main ()
       std::cout <<"s: " << s << std::endl;
 
       // sending post message with the information .......
-      http_client_config config;
-      credentials cred(U("onos"), U("rocks"));
-      config.set_credentials(cred);
+//----      http_client_config config;
+//----      credentials cred(U("onos"), U("rocks"));
+//----      config.set_credentials(cred);
 //      http_client client(U("http://10.71.103.63:34568"),config);
       //http_client client(U("http://onos:rocks@10.71.105.126:8181/onos/mobius/ndn/"),config);
- http_client client(U("http://10.71.105.126:8181/onos/mobius/ndn/"),config);
+
+http_client client(U("http://10.10.1.2:34568"));//l0.71.103.63:34568"));
+//--- http_client client(U("http://10.71.105.126:8181/onos/mobius/ndn/"),config);
       json::value postData;
       postData["name"] = json::value::string(U(s));
       //      postData["work"] = json::value::string(U("Phd"));
@@ -83,10 +85,10 @@ int main ()
 
    }
    catch(interprocess_exception &ex){
-	   message_queue::remove("message_queue");
+//---	   message_queue::remove("message_queue");
    }
 
-   message_queue::remove("message_queue");
+//---   message_queue::remove("message_queue");
     }
     return 0;
 }
