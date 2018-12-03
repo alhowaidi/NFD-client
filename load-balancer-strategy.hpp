@@ -16,12 +16,16 @@ namespace fw {
  *        which allows consumer retransmissions. This version is kept for
  *        comparison purposes and is not recommended for general usage.
  */
-class LoadBalancerStrategy : public Strategy
+class LoadBalancerStrategyME : public Strategy
 {
 public:
   explicit
-  LoadBalancerStrategy(Forwarder& forwarder, const Name& name = getStrategyName());
+  LoadBalancerStrategyME(Forwarder& forwarder, const Name& name = getStrategyName());
 
+protected:
+  LoadBalancerStrategyME(Forwarder& forwarder);
+
+public:
   static const Name&
   getStrategyName();
 
